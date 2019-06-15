@@ -13,7 +13,7 @@ $light-orange: #d38b5d;
     margin: 0;
     padding: 0;
     border: none;
-    font-family: "Noto Sans JP", "Courier New", Courier, monospace;
+    font-family: "Poppins", "Courier New", Courier, monospace;
   }
 
 a {
@@ -61,7 +61,7 @@ button {
         left: 2.5rem;
         border-radius: .2rem;
         overflow: scroll;
-        padding: 3em 5rem;
+        padding: 10.1rem 5rem 3rem;
         opacity: 1;
         transition: opacity .4s ease-in-out;
 
@@ -76,10 +76,6 @@ button {
         border-top: 1px solid $border-grey;
         padding: 1.5em 0;
         cursor: pointer;
-
-        &:first-of-type {
-            margin-top: 6rem;
-        }
 
         &:last-child {
             border-bottom: 1px solid $border-grey;
@@ -138,7 +134,7 @@ button {
     display: flex;
     align-items: center;
     position: fixed;
-    width: 89.5%;
+    width: calc(100vw - 15rem);
     background: inherit;
     top: 2.5rem;
     padding: 2em 0;
@@ -147,7 +143,7 @@ button {
         font-size: 2rem;
         
         & i {
-            color: $blue-color;
+            color: $text-color;
         }
     }
 
@@ -177,10 +173,11 @@ button {
     .create-file {
         position: relative;
         font-size: 1.6rem;
+        margin-right: 5rem;
 
         & .dropdown-btn {
-            margin-right: 4rem;
             font-size: 1.6rem;
+            cursor: pointer;
     
             & i {
                 color: $light-color;
@@ -190,29 +187,32 @@ button {
 
         & .create-options {
             position: absolute;
-            top: 35px;
+            top: 20px;
             background: $blue-color;
             color: #ffffff;
-            width: 83%;
-            padding: 1rem 2rem;
+            width: 100%;
             border-radius: 4px;
+            transition: all .4s ease-in-out;
+            height: 0;
+            padding: 1rem 2rem;
+            z-index: -1;
 
             & li {
                 cursor: pointer;
-
-                &:first-child {
-                    margin-bottom: 1.6rem;
-                    margin-top: 1rem;
-                }
+                margin-bottom: 1.6rem;
+                margin-top: 1rem;
+                transform: scale(0);
+                transition: all .2s ease-in;
             }
-
-            transform: scale(0);
-            height: 0;
         }
 
         & .dropdown-shown {
-            height: auto;
-            transform: scale(1);
+            height: 10rem;
+            top: 30px;
+
+            & li {
+                transform: scaleY(1);
+            }
         }
     }
 }

@@ -8,8 +8,6 @@ class DashboardHeader extends Component {
       expanded: false
     }
 
-    myRef = React.createRef();
-
     componentDidMount() {
       document.addEventListener('mousedown', this.collapseDropdown);
     }
@@ -18,8 +16,10 @@ class DashboardHeader extends Component {
       document.removeEventListener('mousedown', this.collapseDropdown);
     }
 
-    expandDropdown = () => {
-      this.setState({ expanded: true });
+    expandDropdown = (event) => {
+      if (event.target.className.includes('btn')) {
+        this.setState({ expanded: true });
+      }
     }
 
     collapseDropdown = (event) => {
@@ -27,7 +27,10 @@ class DashboardHeader extends Component {
       if (event.path[1].className.includes('create-options')) {
         openCreateFileModal();
       }
-      this.setState({ expanded: false });
+
+      if (!event.target.className.includes('btn')) {
+        this.setState({ expanded: false });
+      }
     }
 
     render() {

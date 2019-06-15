@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import slugify from 'slugify';
 
 const FileIcon = ({ type, name }) => {
-  const fileIcon = type === 'file' ? 'fas fa-folder' : 'far fa-file-alt';
+  const fileIcon = type === 'folder' ? 'fas fa-folder' : 'far fa-file-alt';
   const slug = slugify(name, { lower: true });
 
   return (

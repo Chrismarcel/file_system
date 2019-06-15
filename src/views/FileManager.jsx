@@ -5,62 +5,84 @@ import DashboardHeader from '../components/DashboardHeader';
 
 class FileManager extends Component {
     state = {
-      files: [],
-      createFileModalShown: false
+      directory: {},
+      createFileModalShown: false,
+      fileType: ''
     }
 
     componentWillMount() {
-      const { location } = this.props;
-      const directory = location.split('/').pop();
-      const files = localStorage.getItem(directory);
-      this.setState({ files });
+      const { location: path } = this.props;
+      this.fetchFiles(path);
     }
 
-    openCreateFileModal = () => {
-      this.setState({ createFileModalShown: true });
+    shouldComponentUpdate(nextProps) {
+      const { location: prevPath } = this.props;
+      const { location: nextPath } = nextProps;
+      if (prevPath !== nextPath) { this.fetchFiles(nextPath); }
+      return true;
+    }
+
+    handleFileNameInput = (event) => {
+      this.setState({ [event.target.id]: event.target.value });
+    }
+
+    openCreateFileModal = (event) => {
+      if (event.target) {
+        const fileType = event.target.id;
+        this.setState({ fileType });
+        this.setState({ createFileModalShown: true });
+      }
     }
 
     createNewFile = (event) => {
       event.preventDefault();
+      const { 'file-name': fileName, fileType } = this.state;
+      const { location } = this.props;
+
+      const modifiedDate = new Intl.DateTimeFormat('en-GB', {
+        month: 'long', year: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true
+      }).format(new Date());
+      const directory = !location.split('/').pop() ? 'all-files' : location.split('/').pop();
+      const folder = JSON.parse(localStorage.getItem(directory)) || { files: [], folders: [] };
+      folder[`${fileType}s`].push({ name: fileName, date: modifiedDate });
+      localStorage.setItem(directory, JSON.stringify(folder));
       this.closeCreateFileModal();
+      this.setState({ directory: folder });
     }
 
     closeCreateFileModal = () => {
       this.setState({ createFileModalShown: false });
     }
 
+    fetchFiles(path) {
+      const directory = path.split('/').pop() || 'all-files';
+      const files = JSON.parse(localStorage.getItem(directory)) || { files: [], folders: [] };
+      this.setState({ directory: files });
+    }
+
     render() {
-      const { files, createFileModalShown } = this.state;
+      const { directory, createFileModalShown, fileType } = this.state;
+      const folders = directory.folders.map((folder, id) => {
+        const uniqueKey = id;
+        return <FileList key={uniqueKey + 1} type="folder" name={folder.name} modifiedDate=". . ." />;
+      });
+      const files = directory.files.map((file, id) => {
+        const uniqueKey = id;
+        return <FileList key={uniqueKey + 1} type="file" name={file.name} modifiedDate={file.date} />;
+      });
       return (
         <main className="file-manager">
           <div className={`file-listing ${createFileModalShown ? 'modal-open' : ''}`}>
             <DashboardHeader title="All files" openCreateFileModal={this.openCreateFileModal} />
-            <FileList type="file" name="File 1" modifiedDate=". . ." />
-            <FileList type="file" name="File 2" modifiedDate=". . ." />
-            <FileList type="file" name="File 3" modifiedDate=". . ." />
-            <FileList type="file" name="File 1" modifiedDate=". . ." />
-            <FileList type="file" name="File 2" modifiedDate=". . ." />
-            <FileList type="file" name="File 3" modifiedDate=". . ." />
-            <FileList type="file" name="File 1" modifiedDate=". . ." />
-            <FileList type="file" name="File 2" modifiedDate=". . ." />
-            <FileList type="file" name="File 3" modifiedDate=". . ." />
-            <FileList type="file" name="File 1" modifiedDate=". . ." />
-            <FileList type="file" name="File 2" modifiedDate=". . ." />
-            <FileList type="file" name="File 3" modifiedDate=". . ." />
-            <FileList type="folder" name="Main Folder 1" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 2" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 3" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 4" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 5" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 6" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 7" modifiedDate="24-04-2018 05:00pm" />
-            <FileList type="folder" name="Main Folder 8" modifiedDate="24-04-2018 05:00pm" />
+            {folders}
+            {files}
+            {(!files.length && !folders.length) && <h2 className="empty-folder">This folder is empty</h2>}
           </div>
           <div className={`create-file-modal ${createFileModalShown ? 'modal-open' : ''}`}>
             <form onSubmit={this.createNewFile}>
               <div className="form-group">
-                <input type="text" name="file-name" id="file-name" required />
-                <label htmlFor="file-name">Enter file / folder name</label>
+                <input type="text" name="file-name" id="file-name" required onChange={this.handleFileNameInput} />
+                <label htmlFor="file-name">{`Enter ${fileType} name`}</label>
               </div>
               <div className="btn-group">
                 <button className="btn" type="submit">Create</button>
