@@ -2,7 +2,7 @@
 $warning-color: #c41e3d;
 $text-color: #1b2733;
 $bg-dark: #2c0735;
-$bg-grey: #fafafa;
+$light-color: #fafafa;
 $icon-color: #00a6fb;
 $border-grey: #e6e8eb;
 
@@ -15,9 +15,19 @@ $border-grey: #e6e8eb;
     font-family: "Noto Sans JP", "Courier New", Courier, monospace;
   }
 
-body {
+a {
+    text-decoration: none;
+}
+
+html {
     font-size: 10px;
     color: $text-color;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    background: transparent;
 }
 
 .file {
@@ -25,21 +35,20 @@ body {
         background: $bg-dark;
         width: 100%;
         height: 100vh;
-        font-size: 1.4em;
+        font-size: 1.4rem;
         position: relative;
-        padding: 4em;
     }
 
     &-listing {
-        background: $bg-grey;
+        background: $light-color;
         position: absolute;
-        top: 3em;
-        bottom: 3em;
-        right: 3em;
-        left: 3em;
-        border-radius: .2em;
+        top: 2.5rem;
+        bottom: 2.5rem;
+        right: 2.5rem;
+        left: 2.5rem;
+        border-radius: .2rem;
         overflow: scroll;
-        padding: 3em 5em;
+        padding: 3em 5rem;
     }
 
     &-list {
@@ -47,6 +56,10 @@ body {
         border-top: 1px solid $border-grey;
         padding: 1.5em 0;
         cursor: pointer;
+
+        &:first-of-type {
+            margin-top: 6rem;
+        }
 
         &:last-child {
             border-bottom: 1px solid $border-grey;
@@ -68,15 +81,16 @@ body {
 
     &-name {
         align-self: center;
-        margin-left: 1em;
+        margin-left: 1rem;
     }
 
     &-icon {
         display: flex;
         flex-basis: 50%;
+        color: inherit;
 
         & i {
-            font-size: 2.5em;
+            font-size: 2.5rem;
             color: $icon-color;
         }
     }
@@ -91,13 +105,71 @@ body {
         }
 
         & button {
-            cursor: pointer;
-            outline: none;
-            margin-left: 2em;
+            margin-left: 3.5rem;
         }
 
         & i {
-            font-size: 2em;
+            font-size: 2rem;
         }
+    }
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 89.5%;
+    background: inherit;
+    top: 2.5rem;
+    padding: 2em 0;
+
+    & button, & a {
+        font-size: 2rem;
+        
+        & i {
+            color: $icon-color;
+        }
+    }
+
+    & button {
+        position: relative;
+
+        &:last-child {
+            margin-left: 3.5rem;
+
+            &::before {
+                content: '';
+                position: absolute;
+                background: $border-grey;
+                height: 74%;
+                width: .2rem;
+                left: -2rem;
+                top: .5rem;
+            }
+        }
+    }
+
+    & > .folder-name {
+        flex-grow: 1;
+        margin-left: 2rem;
+    }
+
+    & .dropdown {
+        font-size: 1.6rem;
+        color: $light-color;
+        background: $icon-color;
+        padding: 1rem 2rem;
+        border-radius: .4rem;
+        margin-right: 4rem;
+
+        & i {
+            color: $light-color;
+            margin-right: 1rem;
+        }
+    }
+
+    & .create-options {
+        transform: scale(0);
+        height: 0;
     }
 }
