@@ -2,9 +2,11 @@ import React from 'react';
 import { string } from 'prop-types';
 import FileIcon from './FileIcon';
 
-const FileList = ({ type, name, modifiedDate }) => (
+const FileList = ({
+  type, name, modifiedDate, location
+}) => (
   <div className="file-list">
-    <FileIcon type={type} name={name} />
+    <FileIcon type={type} name={name} location={location} />
     <span className="modified-date">{modifiedDate}</span>
     <div className="file-actions">
       <button type="button" className="edit">
@@ -20,7 +22,8 @@ const FileList = ({ type, name, modifiedDate }) => (
 FileList.propTypes = {
   type: string.isRequired,
   name: string.isRequired,
-  modifiedDate: string.isRequired
+  modifiedDate: string.isRequired,
+  location: string.isRequired
 };
 
 export default FileList;

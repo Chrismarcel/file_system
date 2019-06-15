@@ -42,10 +42,12 @@ class FileManager extends Component {
       const modifiedDate = new Intl.DateTimeFormat('en-GB', {
         month: 'long', year: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true
       }).format(new Date());
+
       const directory = !location.split('/').pop() ? 'all-files' : location.split('/').pop();
       const folder = JSON.parse(localStorage.getItem(directory)) || { files: [], folders: [] };
       folder[`${fileType}s`].push({ name: fileName, date: modifiedDate });
       localStorage.setItem(directory, JSON.stringify(folder));
+
       this.closeCreateFileModal();
       this.setState({ directory: folder });
     }
@@ -62,9 +64,18 @@ class FileManager extends Component {
 
     render() {
       const { directory, createFileModalShown, fileType } = this.state;
+      const { location } = this.props;
       const folders = directory.folders.map((folder, id) => {
         const uniqueKey = id;
-        return <FileList key={uniqueKey + 1} type="folder" name={folder.name} modifiedDate=". . ." />;
+        return (
+          <FileList
+            key={uniqueKey + 1}
+            type="folder"
+            name={folder.name}
+            modifiedDate=". . ."
+            location={location}
+          />
+        );
       });
       const files = directory.files.map((file, id) => {
         const uniqueKey = id;
