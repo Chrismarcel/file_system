@@ -42,7 +42,7 @@ class DashboardHeader extends Component {
           </Link>
           <h2 className="folder-name">{title}</h2>
           <div className="create-file">
-            <button ref={this.myRef} type="button" className="dropdown-btn" onClick={this.expandDropdown}>
+            <button type="button" className="btn dropdown-btn" onClick={this.expandDropdown}>
               <i className="fas fa-plus" />
               Create file / folder
             </button>

@@ -5,6 +5,7 @@ $bg-dark: #2c0735;
 $light-color: #fafafa;
 $blue-color: #00a6fb;
 $border-grey: #e6e8eb;
+$light-orange: #d38b5d;
 
 // Project wide base styles
 * {
@@ -26,6 +27,14 @@ li {
 html {
     font-size: 10px;
     color: $text-color;
+}
+
+.btn {
+    color: $light-color;
+    background: $blue-color;
+    padding: 1rem 2rem;
+    border-radius: .4rem;
+    font-size: 1.6rem;
 }
 
 button {
@@ -170,12 +179,8 @@ button {
         font-size: 1.6rem;
 
         & .dropdown-btn {
-            color: $light-color;
-            background: $blue-color;
-            padding: 1rem 2rem;
-            border-radius: .4rem;
             margin-right: 4rem;
-            font-size: inherit;
+            font-size: 1.6rem;
     
             & i {
                 color: $light-color;
@@ -217,8 +222,73 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 3rem;
+    padding: 3.5rem;
     background: $light-color;
     width: 35%;
-    height: 200px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    z-index: -1;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+
+    &.modal-open {
+        z-index: 10;
+        opacity: 1;
+    }
+
+    & form {
+        display: flex;
+        flex-direction: column;
+
+        & .form-group {
+            position: relative;
+            margin-bottom: 1.5rem
+        }
+
+        & label {
+            opacity: 1;
+            color: inherit;
+            position: absolute;
+            padding: 0;
+            height: 0;
+            top: 18px;
+            left: 20px;
+            transition: all 400ms ease-in-out;
+        }
+        
+        & input {
+            height: 5.5rem;
+            width: 100%;
+            padding: 3.5rem 2rem 2rem;
+            border-radius: .4rem;
+            font-size: 1.4rem;
+            font-family: inherit;
+            cursor: text;
+            border: 2px solid $blue-color;
+
+            &:focus + label, 
+            &:valid + label {
+                opacity: 0.7;
+                top: .3rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        & .btn-group {
+            display: flex;
+            justify-content: space-between;
+
+            & .btn {
+                width: 45%;
+                align-self: center;
+                height: 5rem;
+
+                &.cancel {
+                    background: $light-orange;
+                }
+            }
+        }
+    }
 }
