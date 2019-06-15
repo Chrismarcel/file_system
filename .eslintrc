@@ -69,26 +69,6 @@
           "err"
         ]
       }
-    ],
-    "valid-jsdoc": [
-      "error",
-      {
-        "requireReturn": true,
-        "requireReturnType": true,
-        "requireParamDescription": false,
-        "requireReturnDescription": true
-      }
-    ],
-    "require-jsdoc": [
-      "error",
-      {
-        "require": {
-          "FunctionDeclaration": true,
-          "ArrowFunctionExpression": true,
-          "MethodDefinition": true,
-          "ClassDeclaration": true
-        }
-      }
     ]
   },
   "parser": "babel-eslint"

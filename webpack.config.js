@@ -12,10 +12,6 @@ module.exports = env => ({
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css']
   },
-  node: {
-    net: 'empty',
-    fs: 'empty'
-  },
   module: {
     rules: [
       {
@@ -41,19 +37,6 @@ module.exports = env => ({
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader']
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              name: '[name].[ext]',
-              outputPath: './assets/img/'
-            }
-          }
-        ]
       }
     ]
   },
