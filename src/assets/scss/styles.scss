@@ -3,7 +3,7 @@ $warning-color: #c41e3d;
 $text-color: #1b2733;
 $bg-dark: #2c0735;
 $light-color: #fafafa;
-$icon-color: #00a6fb;
+$blue-color: #00a6fb;
 $border-grey: #e6e8eb;
 
 // Project wide base styles
@@ -17,6 +17,10 @@ $border-grey: #e6e8eb;
 
 a {
     text-decoration: none;
+}
+
+li {
+    list-style: none;
 }
 
 html {
@@ -91,13 +95,13 @@ button {
 
         & i {
             font-size: 2.5rem;
-            color: $icon-color;
+            color: $blue-color;
         }
     }
 
     &-actions {
         & > .edit {
-            color: $icon-color;
+            color: $blue-color;
         }
 
         & > .delete {
@@ -127,7 +131,7 @@ button {
         font-size: 2rem;
         
         & i {
-            color: $icon-color;
+            color: $blue-color;
         }
     }
 
@@ -154,22 +158,49 @@ button {
         margin-left: 2rem;
     }
 
-    & .dropdown {
+    .create-file {
+        position: relative;
         font-size: 1.6rem;
-        color: $light-color;
-        background: $icon-color;
-        padding: 1rem 2rem;
-        border-radius: .4rem;
-        margin-right: 4rem;
 
-        & i {
+        & .dropdown-btn {
             color: $light-color;
-            margin-right: 1rem;
+            background: $blue-color;
+            padding: 1rem 2rem;
+            border-radius: .4rem;
+            margin-right: 4rem;
+            font-size: inherit;
+    
+            & i {
+                color: $light-color;
+                margin-right: 1rem;
+            }
         }
-    }
 
-    & .create-options {
-        transform: scale(0);
-        height: 0;
+        & .create-options {
+            position: absolute;
+            top: 35px;
+            background: $blue-color;
+            color: #ffffff;
+            width: 83%;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+
+            & li {
+                cursor: pointer;
+
+                &:first-child {
+                    margin-bottom: 1.6rem;
+                    margin-top: 1rem;
+                }
+            }
+
+            transform: scale(0);
+            height: 0;
+        }
+
+        & .dropdown-shown {
+            height: auto;
+            transform: scale(1);
+        }
     }
 }
