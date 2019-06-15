@@ -53,6 +53,13 @@ button {
         border-radius: .2rem;
         overflow: scroll;
         padding: 3em 5rem;
+        opacity: 1;
+        transition: opacity .4s ease-in-out;
+
+        &.modal-open {
+            opacity: .5;
+            overflow: hidden;
+        }
     }
 
     &-list {
@@ -203,4 +210,15 @@ button {
             transform: scale(1);
         }
     }
+}
+
+.create-file-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem;
+    background: $light-color;
+    width: 35%;
+    height: 200px;
 }

@@ -23,13 +23,15 @@ class DashboardHeader extends Component {
     }
 
     collapseDropdown = (event) => {
-      if (!this.myRef.current.contains(event.target)) {
-        this.setState({ expanded: false });
+      const { openCreateFileModal } = this.props;
+      if (event.path[1].className.includes('create-options')) {
+        openCreateFileModal();
       }
+      this.setState({ expanded: false });
     }
 
     render() {
-      const { title, createFileModal, toggleDisplay } = this.props;
+      const { title, openCreateFileModal, toggleDisplay } = this.props;
       const { expanded } = this.state;
       const slug = slugify(title, { lower: true });
 
@@ -44,9 +46,9 @@ class DashboardHeader extends Component {
               <i className="fas fa-plus" />
               Create file / folder
             </button>
-            <ul className={`create-options ${expanded && 'dropdown-shown'}`}>
-              <li role="presentation" id="file" onClick={createFileModal}>Create File</li>
-              <li role="presentation" id="folder" onClick={createFileModal}>Create Folder</li>
+            <ul className={`create-options ${expanded ? 'dropdown-shown' : ''}`}>
+              <li role="presentation" id="file" onClick={openCreateFileModal}>Create File</li>
+              <li role="presentation" id="folder" onClick={openCreateFileModal}>Create Folder</li>
             </ul>
           </div>
           <div className="display-type">
@@ -64,7 +66,7 @@ class DashboardHeader extends Component {
 
 DashboardHeader.propTypes = {
   title: string.isRequired,
-  createFileModal: func.isRequired,
+  openCreateFileModal: func.isRequired,
   toggleDisplay: func.isRequired
 };
 

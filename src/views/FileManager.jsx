@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+// import { string } from 'prop-types';
 import FileList from '../components/FileList';
 import DashboardHeader from '../components/DashboardHeader';
 
 class FileManager extends Component {
     state = {
-      files: []
+    //   files: [],
+      createFileModalShown: false
     }
 
     componentWillMount() {
-      const { location } = this.props;
-      const directory = location.split('/').pop();
-      const files = localStorage.getItem(directory);
-      this.setState({ files });
+    //   const { location } = this.props;
+    //   const directory = location.split('/').pop();
+    //   const files = localStorage.getItem(directory);
+    //   this.setState({ files });
+    }
+
+    openCreateFileModal = () => {
+      this.setState({ createFileModalShown: true });
     }
 
     render() {
-      const { files } = this.state;
+      const { createFileModalShown } = this.state;
       return (
         <main className="file-manager">
-          <div className="file-listing">
-            <DashboardHeader title="All files" />
+          <div className={`file-listing ${createFileModalShown ? 'modal-open' : ''}`}>
+            <DashboardHeader title="All files" openCreateFileModal={this.openCreateFileModal} />
             <FileList type="file" name="File 1" modifiedDate=". . ." />
             <FileList type="file" name="File 2" modifiedDate=". . ." />
             <FileList type="file" name="File 3" modifiedDate=". . ." />
@@ -42,13 +47,19 @@ class FileManager extends Component {
             <FileList type="folder" name="Main Folder 7" modifiedDate="24-04-2018 05:00pm" />
             <FileList type="folder" name="Main Folder 8" modifiedDate="24-04-2018 05:00pm" />
           </div>
+          <div className={`create-file-modal ${createFileModalShown ? 'modal-open' : ''}`}>
+            <form>
+              <input type="text" name="file-name" id="file-name" />
+              <button type="submit">Create</button>
+            </form>
+          </div>
         </main>
       );
     }
 }
 
 FileManager.propTypes = {
-  location: string.isRequired
+//   location: string.isRequired
 };
 
 export default FileManager;
