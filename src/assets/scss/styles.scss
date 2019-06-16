@@ -245,7 +245,7 @@ button {
     }
 }
 
-.create-file-modal {
+.modal {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -270,11 +270,6 @@ button {
         display: flex;
         flex-direction: column;
 
-        & .form-group {
-            position: relative;
-            margin-bottom: 1.5rem
-        }
-
         & label {
             opacity: 1;
             color: inherit;
@@ -284,6 +279,11 @@ button {
             top: 1.8rem;
             left: 2rem;
             transition: all 400ms ease-in-out;
+        }
+
+        & .form-group {
+            position: relative;
+            margin-bottom: 1.5rem
         }
         
         & input {
@@ -303,20 +303,32 @@ button {
                 font-size: 1.2rem;
             }
         }
+    }
 
-        & .btn-group {
-            display: flex;
-            justify-content: space-between;
+    & .btn-group {
+        display: flex;
+        justify-content: space-between;
 
-            & .btn {
-                width: 45%;
-                align-self: center;
-                height: 5rem;
+        & .btn {
+            width: 45%;
+            align-self: center;
+            height: 5rem;
 
-                &.cancel {
-                    background: $light-orange;
-                }
+            &.cancel {
+                background: $light-orange;
             }
+        }
+    }
+
+    &.delete {
+        & .message {
+            font-size: 2rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        & .btn.delete {
+            background: #d38b5d;
         }
     }
 }
