@@ -204,7 +204,9 @@ class FileManager extends Component {
           {(mode === 'Delete') && (
           <div className={`modal delete ${status ? 'modal-open' : ''}`}>
             <div>
-              <p className="message">Are you sure you want to delete?</p>
+              <p className="message">
+                {`Are you sure you want to delete this ${fileType} ?`}
+              </p>
             </div>
             <div className="btn-group">
               <button className="btn" type="button" onClick={this.closeModal}>Cancel</button>

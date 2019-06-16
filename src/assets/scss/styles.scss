@@ -373,8 +373,29 @@ button {
             padding: 7.5rem 0 3rem;
         }
 
+        &-name {
+            padding: 0 .4rem;
+        }
+
         &-list {
             padding: 3rem 2.5rem;
+        }
+    }
+
+    .modal {
+        width: 85%;
+
+        & .btn-group {
+            flex-direction: column;
+
+            & > .btn {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        &.delete .message {
+            margin-bottom: 2rem;
         }
     }
 } 
