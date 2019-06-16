@@ -41,6 +41,13 @@ button {
     cursor: pointer;
     outline: none;
     background: transparent;
+    transform: translateY(0);
+    transition: all .4s ease-in-out;
+
+    &:hover {
+        transform: translateY(.2rem);
+        box-shadow: 0px 10px 31px rgba(0, 0, 0, 0.1);
+    }
 }
 
 .file {
@@ -55,13 +62,13 @@ button {
     &-listing {
         background: $light-color;
         position: absolute;
-        top: 2.5rem;
+        top: 3.5rem;
         bottom: 2.5rem;
         right: 2.5rem;
         left: 2.5rem;
         border-radius: .2rem;
         overflow: scroll;
-        padding: 10.1rem 5rem 3rem;
+        padding: 10.1rem 0 3rem;
         opacity: 1;
         transition: opacity .4s ease-in-out;
 
@@ -77,13 +84,17 @@ button {
         &.modal-open {
             opacity: .5;
             overflow: hidden;
+            pointer-events: none;
         }
     }
 
     &-list {
         display: flex;
         border-top: 1px solid $border-grey;
-        padding: 1.5em 0;
+        padding: 3rem 5rem;
+        cursor: pointer;
+        transform: translateY(.2rem);
+        transition: all .35s ease-in;
 
         &:last-child {
             border-bottom: 1px solid $border-grey;
@@ -100,6 +111,11 @@ button {
         & > *:last-child {
             display: flex;
             justify-content: flex-end;
+        }
+
+        &:hover {
+            transform: translateY(.2rem);
+            box-shadow: 0px 10px 31px rgba(0, 0, 0, 0.1)
         }
     }
 
@@ -146,10 +162,11 @@ button {
     display: flex;
     align-items: center;
     position: fixed;
-    width: calc(100vw - 15rem);
+    width: calc(100vw - 5rem);
     background: inherit;
     top: 2.5rem;
-    padding: 2em 0;
+    padding: 3rem 5rem;
+    z-index: 100;
 
     & button, & a {
         font-size: 2rem;
@@ -194,7 +211,6 @@ button {
     .create-file {
         position: relative;
         font-size: 1.6rem;
-        margin-right: 5rem;
 
         & .dropdown-btn {
             font-size: 1.6rem;
@@ -332,3 +348,33 @@ button {
         }
     }
 }
+
+@media only screen and (max-width: 767px) {
+    .dashboard-header {
+        padding: 2rem 2.5rem;
+
+        & .create-file {
+            & .create-options {
+                width: 20.6rem;
+                top: 3.87rem;
+                right: 0rem;
+            }
+
+            & .dropdown-btn {
+                width: 5.5rem;
+                height: 4.1rem;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .file {
+        &-listing {
+            padding: 7.5rem 0 3rem;
+        }
+
+        &-list {
+            padding: 3rem 2.5rem;
+        }
+    }
+} 

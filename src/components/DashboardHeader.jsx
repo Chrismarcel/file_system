@@ -41,7 +41,7 @@ class DashboardHeader extends Component {
 
     render() {
       const {
-        title, openCreateFileModal, toggleDisplay, folderExists
+        title, openCreateFileModal, folderExists
       } = this.props;
       const { expanded } = this.state;
 
@@ -61,14 +61,6 @@ class DashboardHeader extends Component {
               <li role="presentation" id="folder" onClick={openCreateFileModal}>Create Folder</li>
             </ul>
           </div>
-          <div className="display-type">
-            <button type="button" id="list" className="list-btn" onClick={toggleDisplay}>
-              <i className="fas fa-list" />
-            </button>
-            <button type="button" id="grid" className="grid-btn" onClick={toggleDisplay}>
-              <i className="fas fa-th" />
-            </button>
-          </div>
         </header>
       );
     }
@@ -77,7 +69,6 @@ class DashboardHeader extends Component {
 DashboardHeader.propTypes = {
   title: string.isRequired,
   openCreateFileModal: func.isRequired,
-  toggleDisplay: func.isRequired,
   folderExists: bool.isRequired,
   history: shape({
     goBack: func.isRequired

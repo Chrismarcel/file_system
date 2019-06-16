@@ -125,7 +125,7 @@ class FileManager extends Component {
       this.setState({ directory });
     }
 
-    fetchFiles(path) {
+    fetchFiles = (path) => {
       const directory = path.split('/').pop() || 'all-files';
       const directoryObj = { files: [], folders: [] };
       const files = JSON.parse(localStorage.getItem(directory)) || directoryObj;
