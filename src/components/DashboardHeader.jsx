@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { string, func } from 'prop-types';
-import slugify from 'slugify';
+import {
+  string, func, shape, bool
+} from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class DashboardHeader extends Component {
@@ -22,6 +23,11 @@ class DashboardHeader extends Component {
       }
     }
 
+    goBack = () => {
+      const { history } = this.props;
+      history.goBack();
+    }
+
     collapseDropdown = (event) => {
       const { openCreateFileModal } = this.props;
       if (event.path[1].className.includes('create-options')) {
@@ -34,18 +40,19 @@ class DashboardHeader extends Component {
     }
 
     render() {
-      const { title, openCreateFileModal, toggleDisplay } = this.props;
+      const {
+        title, openCreateFileModal, toggleDisplay, folderExists
+      } = this.props;
       const { expanded } = this.state;
-      const slug = slugify(title, { lower: true });
 
       return (
         <header className="dashboard-header">
-          <Link to={slug} className="back-btn">
+          <Link to="../" className="back-btn" onClick={this.goBack}>
             <i className="fas fa-long-arrow-alt-left" />
           </Link>
           <h2 className="folder-name">{title}</h2>
           <div className="create-file">
-            <button type="button" className="btn dropdown-btn" onClick={this.expandDropdown}>
+            <button disabled={folderExists} type="button" className="btn dropdown-btn" onClick={this.expandDropdown}>
               <i className="fas fa-plus" />
               Create file / folder
             </button>
@@ -70,7 +77,11 @@ class DashboardHeader extends Component {
 DashboardHeader.propTypes = {
   title: string.isRequired,
   openCreateFileModal: func.isRequired,
-  toggleDisplay: func.isRequired
+  toggleDisplay: func.isRequired,
+  folderExists: bool.isRequired,
+  history: shape({
+    goBack: func.isRequired
+  }).isRequired
 };
 
 export default DashboardHeader;

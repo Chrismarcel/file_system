@@ -8,7 +8,16 @@ import './assets/scss/styles.scss';
 
 const App = () => (
   <BrowserRouter>
-    <Route to="*" component={({ location }) => <FileManager location={location.pathname} />} />
+    <Route
+      to="*"
+      component={({ location, history }) => (
+        <FileManager
+          history={history}
+          location={location.pathname}
+        />
+      )
+    }
+    />
   </BrowserRouter>
 );
 
