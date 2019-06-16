@@ -10,7 +10,8 @@ class FileManager extends Component {
       modalIsOpen: { status: false, mode: '' },
       fileType: '',
       dashboardTitle: 'All files',
-      folderExists: true
+      folderExists: true,
+      onHomepage: false
     }
 
     componentWillMount() {
@@ -131,15 +132,20 @@ class FileManager extends Component {
       const files = JSON.parse(localStorage.getItem(directory)) || directoryObj;
       const title = this.updateDashboardTitle(path);
       const dashboardTitle = title.length ? title[0].name : 'All files';
-      this.setState({ directory: files, dashboardTitle, folderExists: true });
+      this.setState({
+        directory: files, dashboardTitle, folderExists: true, onHomepage: false
+      });
       if (directory !== 'all-files' && !title.length) {
         this.setState({ folderExists: false });
+      }
+      if (directory === 'all-files') {
+        this.setState({ onHomepage: true });
       }
     }
 
     render() {
       const {
-        directory, modalIsOpen: { status, mode }, fileType, dashboardTitle, folderExists
+        directory, modalIsOpen: { status, mode }, fileType, dashboardTitle, folderExists, onHomepage
       } = this.state;
       const { location, history } = this.props;
       const folders = directory && directory.folders.map(folder => (
@@ -150,7 +156,7 @@ class FileManager extends Component {
           modifiedDate=". . ."
           location={location === '/' ? 'all-files' : location}
           url={folder.url}
-          openEditMode={this.handleEditFile}
+          openEditModal={this.handleEditFile}
           openDeleteModal={this.handleDeleteFile}
         />
       ));
@@ -161,7 +167,7 @@ class FileManager extends Component {
           name={file.name}
           modifiedDate={file.date}
           url={file.url}
-          openEditMode={this.handleEditFile}
+          openEditModal={this.handleEditFile}
           openDeleteModal={this.handleDeleteFile}
         />
       ));
@@ -174,6 +180,7 @@ class FileManager extends Component {
               title={dashboardTitle}
               openCreateFileModal={this.openCreateFileModal}
               folderExists={!folderExists}
+              onHomepage={onHomepage}
             />
             {folders}
             {files}

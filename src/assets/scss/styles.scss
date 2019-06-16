@@ -201,6 +201,12 @@ button {
         &:hover {
             transform: scaleX(1.4) translateX(-.4rem);
         }
+
+        &.disabled {
+            opacity: .5;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
     }
 
     & > .folder-name {

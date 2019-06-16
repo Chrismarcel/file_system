@@ -41,13 +41,17 @@ class DashboardHeader extends Component {
 
     render() {
       const {
-        title, openCreateFileModal, folderExists
+        title, openCreateFileModal, folderExists, onHomepage
       } = this.props;
       const { expanded } = this.state;
 
       return (
         <header className="dashboard-header">
-          <Link to="../" className="back-btn" onClick={this.goBack}>
+          <Link
+            to="../"
+            className={`back-btn ${onHomepage ? 'disabled' : ''}`}
+            onClick={this.goBack}
+          >
             <i className="fas fa-long-arrow-alt-left" />
           </Link>
           <h2 className="folder-name">{title}</h2>
@@ -70,6 +74,7 @@ DashboardHeader.propTypes = {
   title: string.isRequired,
   openCreateFileModal: func.isRequired,
   folderExists: bool.isRequired,
+  onHomepage: bool.isRequired,
   history: shape({
     goBack: func.isRequired
   }).isRequired
